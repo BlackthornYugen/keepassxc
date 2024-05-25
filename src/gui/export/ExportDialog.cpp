@@ -61,6 +61,9 @@ QString ExportDialog::getStrategyName(ExportSortingStrategy strategy)
 
 void ExportDialog::exportDatabase()
 {
+#ifndef WITH_XC_EXPORT
+    return;
+#else
     auto sortBy = m_ui->sortingStrategy->currentData().toInt();
     bool ascendingOrder = sortBy == ExportSortingStrategy::BY_NAME_ASC;
 
@@ -80,4 +83,5 @@ void ExportDialog::exportDatabase()
     }
 
     accept();
+#endif
 }
