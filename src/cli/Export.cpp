@@ -41,6 +41,11 @@ int Export::executeWithDatabase(QSharedPointer<Database> database, QSharedPointe
     TextStream out(Utils::STDOUT.device());
     auto& err = Utils::STDERR;
 
+#ifndef WITH_XC_EXPORT
+    err << "Export has been disabled." << endl;
+    return EXIT_FAILURE;
+#endif
+
     QString format = parser->value(Export::FormatOption);
     if (format.isEmpty() || format.startsWith(QStringLiteral("xml"), Qt::CaseInsensitive)) {
         QByteArray xmlData;
